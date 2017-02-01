@@ -3,7 +3,7 @@ using Nancy.Hosting.Self;
 using PushSharp.Apple;
 using Newtonsoft.Json.Linq;
 using System.IO;
-
+using System.Threading;
 
 namespace OpenGateServer
 {
@@ -22,8 +22,14 @@ namespace OpenGateServer
 				host.Start();
 
 				Console.WriteLine("Your application is running on " + uri);
-				Console.WriteLine("Press any [Enter] to close the host.");
-				Console.ReadLine();
+
+				//prevent app from getting closed since on Heroku Console.ReadLine() doesn't wait for user action.
+				//instead it prints to Heroku's console
+				while (true)
+				{
+					Console.WriteLine("{0}\tWaiting for request", DateTime.UtcNow.ToString("u"));
+					Thread.Sleep(TimeSpan.FromSeconds(1));
+				}
 			}
 
 			Broker.Stop();
