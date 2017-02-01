@@ -70,11 +70,14 @@ namespace OpenGateServer
 			//todo: imp a mechanism that first try one agent. if could not - try the next one and so on
 			foreach (var deviceToken in Data.Tokens)
 			{
+				//build absolute path, otherwise on Heroku it builds a wrong relative path
+				var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "payload.json");
+
 				// Queue a notification to send
 				apnsBroker.QueueNotification(new ApnsNotification
 				{
 					DeviceToken = deviceToken,
-					Payload = JObject.Parse(File.ReadAllText(Path.Combine("Resources", "payload.json")))//send the payload as the body of http/2 using ssl to gateway.sandbox.push.apple.com on TCP port 2195 or gateway.push.apple.com on TCP port 2195:
+					Payload = JObject.Parse(File.ReadAllText(path))//send the payload as the body of http/2 using ssl to gateway.sandbox.push.apple.com on TCP port 2195 or gateway.push.apple.com on TCP port 2195:
 				});
 			}
 		}
