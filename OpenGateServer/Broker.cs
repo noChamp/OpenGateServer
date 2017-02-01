@@ -18,7 +18,11 @@ namespace OpenGateServer
 		{
 			// Configuration (NOTE: .pfx can also be used here)
 			// use the certificate from Resources folder
-			config = new ApnsConfiguration(ApnsConfiguration.ApnsServerEnvironment.Sandbox, Path.Combine("Resources", "Certificates.p12"), "server");
+
+			//build absolute path, otherwise on Heroku it builds a wrong relative path
+			var path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "Certificates.p12");
+
+			config = new ApnsConfiguration(ApnsConfiguration.ApnsServerEnvironment.Sandbox, path, "server");
 
 			// Create a new broker
 			apnsBroker = new ApnsServiceBroker(config);
