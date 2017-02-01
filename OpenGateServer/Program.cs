@@ -14,8 +14,19 @@ namespace OpenGateServer
 			Data.Init();
 			Broker.Start();
 
+			//set default port
+			int iPort = 3579;
+
+			//in Heroku the platform decides the port
+			string sPort = Environment.GetEnvironmentVariable("PORT");
+
+			if (sPort != null)
+				iPort = Convert.ToInt32(sPort);
+
+			string sAddress = string.Format("http://localhost:{0}", iPort);
+
 			//luanch Nancy web server
-			var uri = new Uri("http://localhost:3579");
+			var uri = new Uri(sAddress);
 
 			using (var host = new NancyHost(uri))
 			{
