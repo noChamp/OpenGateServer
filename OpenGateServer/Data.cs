@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,24 +11,25 @@ namespace OpenGateServer
 	public static class Data
 	{
 		public static List<string> Tokens = new List<string>();
-		private static string fileName;
+		private static string m_sFileName = "tokens.txt";
 
 		public static void Init()
 		{
-			//todo: read the file and populate the list
+			//read the tokens file and populate the list
+			if (!File.Exists(m_sFileName))
+				return;
 
-			//todo: delete this since its hard coded
-		//	Tokens.Add("95265f74 fa5f37bf efa2661d 369ae92e 1657f57f 21ffce11 0b789fde 96ead87a");
-		//	Tokens.Add("<95265f74 fa5f37bf efa2661d 369ae92e 1657f57f 21ffce11 0b789fde 96ead87a>");
-			Tokens.Add("95265f74fa5f37bfefa2661d369ae92e1657f57f21ffce110b789fde96ead87a");
-		//	Tokens.Add("<95265f74fa5f37bfefa2661d369ae92e1657f57f21ffce110b789fde96ead87a>");
+			string[] tokens = File.ReadAllLines(m_sFileName);
+
+			Tokens = new List<string>(tokens);
 		}
 
 		public static void Add(string sToken)
 		{
 			Tokens.Add(sToken);
 
-			//todo: write all to file
+			//write all to file
+			File.WriteAllLines(m_sFileName, Tokens);
 		}
 	}
 }
