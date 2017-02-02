@@ -15,8 +15,6 @@ namespace OpenGateServer.Modules
 			{
 				//extract token from request
 
-				//todo: test multiple time to see iof i need to seek the stream to the begining or not
-
 				var body = this.Request.Body;
 				int length = (int)body.Length;
 				byte[] data = new byte[length];
