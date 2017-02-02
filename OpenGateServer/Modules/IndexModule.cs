@@ -40,9 +40,12 @@ namespace OpenGateServer.Modules
 
 				Console.WriteLine("token parsed: " + token);
 
-				Data.Add(token);
+				bool bRes = Data.Add(token);
 
-				return "token " + token + " was added";
+				if(bRes)
+					return "token " + token + " was added";
+				else
+					return "token " + token + " is already exist";
 			};
 
 			

@@ -24,12 +24,17 @@ namespace OpenGateServer
 			Tokens = new List<string>(tokens);
 		}
 
-		public static void Add(string sToken)
+		public static bool Add(string sToken)
 		{
+			if (Tokens.Contains(sToken))
+				return false;
+
 			Tokens.Add(sToken);
 
 			//write all to file
 			File.WriteAllLines(m_sFileName, Tokens);
+
+			return true;
 		}
 	}
 }
