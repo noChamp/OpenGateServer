@@ -1,5 +1,6 @@
 ﻿using Nancy;
 using System;
+using System.Text;
 
 namespace OpenGateServer.Modules
 {
@@ -11,6 +12,20 @@ namespace OpenGateServer.Modules
 			{
 				return View["index"];
 			};
+
+			//for debug
+			Get["/listTokens"] = parameters =>
+			{
+				StringBuilder sb = new StringBuilder();
+
+				foreach (string token in Data.Tokens)
+				{
+					sb.AppendLine(token);
+				}
+
+				return sb.ToString();
+			};
+
 
 			Post["/addToken"] = parameters =>
 			{
