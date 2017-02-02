@@ -24,7 +24,7 @@ namespace OpenGateServer.Modules
 
 				Data.Add(token);
 
-				return null;
+				return "token " + token + " was added";
 			};
 
 			
