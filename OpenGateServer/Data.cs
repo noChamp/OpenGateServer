@@ -36,5 +36,18 @@ namespace OpenGateServer
 
 			return true;
 		}
+
+		public static bool Remove(string sToken)
+		{
+			if (!Tokens.Contains(sToken))
+				return false;
+
+			Tokens.Remove(sToken);
+
+			//write all to file
+			File.WriteAllLines(m_sFileName, Tokens);
+
+			return true;
+		}
 	}
 }
