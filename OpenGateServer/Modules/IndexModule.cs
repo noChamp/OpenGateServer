@@ -1,4 +1,5 @@
 ﻿using Nancy;
+using System;
 
 namespace OpenGateServer.Modules
 {
@@ -14,13 +15,15 @@ namespace OpenGateServer.Modules
 			Post["/addToken"] = parameters =>
 			{
 				//extract token from request
+				Console.WriteLine("trying to parse token from request");
 
 				var body = this.Request.Body;
 				int length = (int)body.Length;
 				byte[] data = new byte[length];
 				body.Read(data, 0, length);
 				string token = System.Text.Encoding.Default.GetString(data);
-				System.Console.WriteLine("token added: " + token);
+
+				Console.WriteLine("token parsed: " + token);
 
 				Data.Add(token);
 
